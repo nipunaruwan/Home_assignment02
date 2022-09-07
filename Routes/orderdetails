@@ -1,0 +1,24 @@
+const express = require('express')
+const mysql = require('mysql')
+const dbase = require('../configs/db.configs')
+const router = express.Router()
+const connection = mysql.createConnection(dbase.database)
+
+
+// order detail table created
+connection.connect(function(err){
+    if (err) {
+        console.log(err);
+    } else {
+        var orderDetailTable = "CREATE TABLE IF NOT EXISTS orderdetail(orderId VARCHAR(10) PRIMARY KEY, itemCode VARCHAR(15) PRIMARY KEY, qty INT, unitPrice DOUBLE)";
+        if (err) {
+            console.log(err);
+        } else {
+            connection.query(orderDetailTable, function (err, result) {
+                if(result.warningCount===0){
+                    console.log("table created");
+                }
+            })
+        }
+    }
+})

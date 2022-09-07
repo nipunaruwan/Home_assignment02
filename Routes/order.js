@@ -1,6 +1,6 @@
 const express = require('express')
 const mysql = require('mysql')
-const dbase = require('../configs/db.configs')
+const dbase = require('../config/db.config')
 const router = express.Router()
 const connection = mysql.createConnection(dbase.database)
 
@@ -87,3 +87,5 @@ router.get('/:id',(req,res)=>{
         res.send(row);
     })
 })
+
+module.exports = router

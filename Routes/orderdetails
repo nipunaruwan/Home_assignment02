@@ -22,3 +22,12 @@ connection.connect(function(err){
         }
     }
 })
+
+// get order detail
+router.get('/',(req,res)=>{
+    var query = "SELECT * FROM orderdetail";
+    connection.query(query, (err,rows)=>{
+        if (err) console.log(err)
+        res.send(rows)
+    })
+})

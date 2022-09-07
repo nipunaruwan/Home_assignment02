@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
 })
 
 //update customer
- router.put('/',(req,rees)=>{
+ router.put('/',(req,res)=>{
     const id = req.body.id;
     const name = req.body.name;
     const address = req.body.address;
@@ -83,7 +83,19 @@ router.post('/', (req, res) => {
     })
 })
 
+ //Search Customer
+ router.get('/:id',(req,res)=>{
+    const id=req.params.id;
+
+    var SearchQuery = "SELECT * FROM customer WHERE id=?"
+
+    connection.query(SearchQuery,[id], (err,row) => {
+        if (err) console.log(err);
+        res.send(row);
+    
  
+})
+})
 
 
 

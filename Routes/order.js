@@ -44,3 +44,21 @@ router.post('/', (req,res)=>{
         }
     })
 })
+
+// update order
+router.put('/', (req,res)=>{
+    const id = req.body.id
+    const date = req.body.date
+    const cusId = req.body.cusId
+
+    var updateOrderQuery = "UPDATE orders date=?, cusId=?, WHERE id=?";
+    connection.query(updateOrderQuery, [date, cusId, id], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ "message": "order updated" })
+        } else {
+            res.send({ "message": "order is not found. try again" })
+        }
+    })
+})

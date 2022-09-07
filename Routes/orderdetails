@@ -31,3 +31,21 @@ router.get('/',(req,res)=>{
         res.send(rows)
     })
 })
+
+// save order detail
+router.post('/',(req,res)=>{
+    const orderId = req.body.orderId;
+    const itemCode = req.body.itemCode;
+    const qty = req.body.qty;
+    const unitPrice = req.body.unitPrice;
+
+    var query = "INSERT INTO orderdetail (orderId, itemCode, qty, unitPrice) VALUES(?,?,?,?)";
+    connection.query(query, [orderId, itemCode, qty, unitPrice], (err)=>{
+        if (err) {
+            res.send({ "message": "duplicate entry" })
+        } else {
+            res.send({ "message": "order detail saved" })
+        }
+    })
+})
+

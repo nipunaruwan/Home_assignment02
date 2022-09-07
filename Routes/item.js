@@ -89,4 +89,17 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+
+
+// search
+router.get('/:id',(req,res)=>{
+    const code =req.params.code
+    var searchItemQuery = "SELECT * FROM item WHERE code=?"
+    connection.query(searchItemQuery, [code], (err, row) => {
+        if (err) console.log(err);
+        res.send(row);
+
+})
+})
+
 module.exports = router;

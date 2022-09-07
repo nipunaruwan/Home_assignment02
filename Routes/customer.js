@@ -1,5 +1,6 @@
 const express = require('express')
 const req = require('express/lib/request')
+const res = require('express/lib/response')
 const mysql = require('mysql')
 const dbase = require('../Config/db.config')
 const router = express.Router()
@@ -95,6 +96,21 @@ router.post('/', (req, res) => {
     
  
 })
+})
+
+
+router.delete('/:id' ,(req, res) => {
+    const id = req.params.id;
+    var deleteQuery = "DELETE FROM customer WHERE id=?";
+    connection.query(deleteQuery, [id], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ "message": "customer is deleted" })
+        } else {
+            res.send({ "message": "customer is not found. try again" })
+        }
+    })
 })
 
 

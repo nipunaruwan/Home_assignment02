@@ -18,3 +18,12 @@ connection.connect(function (err) {
         })
     }
 })
+
+//get all order
+router.get('/', (req, res) => {
+    var getAllOrderQuery = "SELECT * FROM orders";
+    connection.query(getAllOrderQuery, (err, rows) => {
+        if (err) console.log(err)
+        res.send(rows)
+    })
+})

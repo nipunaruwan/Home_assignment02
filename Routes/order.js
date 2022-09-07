@@ -77,3 +77,13 @@ router.delete('/:id', (req, res) => {
         }
     })
 })
+
+// search order
+router.get('/:id',(req,res)=>{
+    const id = req.params.id
+    var searchOrderQuery = "SELECT * FROM orders WHERE id=?"
+    connection.query(searchOrderQuery, [id], (err, row) => {
+        if (err) console.log(err);
+        res.send(row);
+    })
+})

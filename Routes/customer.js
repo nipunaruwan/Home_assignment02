@@ -1,4 +1,5 @@
 const express = require('express')
+const req = require('express/lib/request')
 const mysql = require('mysql')
 const dbase = require('../Config/db.config')
 const router = express.Router()
@@ -37,7 +38,7 @@ connection.connect(function (err) {
 })
 
 
-
+// get all customer
 router.get('/', (req, res) => {
     var getAllQuery = "SELECT * FROM customer";
     connection.query(getAllQuery, (err, rows) => {
@@ -45,5 +46,45 @@ router.get('/', (req, res) => {
         res.send(rows);
     })
 })
+// save customer
+router.post('/', (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const address = req.body.address;
+    const salary = req.body.salary;
+
+    var saveQuery = "INSERT INTO customer(id,name,address,salary) VALUES(?,?,?,?)";
+
+    connection.query(saveQuery, [id, name, address, salary], (err) => {
+        if (err) {
+            res.send({ "message": "duplicate entry" })
+        } else {
+            res.send({ "message": "Customer saved" })
+        }
+    })
+})
+
+//update customer
+ router.put('/',(req,rees)=>{
+    const id = req.body.id;
+    const name = req.body.name;
+    const address = req.body.address;
+    const salary = req.body.salary;
+
+    var updateQuery = "UPDATE customer SET name=?, address=?, salary=? WHERE id=?";
+    connection.query(updateQuery, [name, address, salary, id], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ "message": "customer updated" })
+        } else {
+            res.send({ "message": "customer is not found. try again" })
+        }
+    })
+})
+
+ 
+
+
 
 module.exports = router; 

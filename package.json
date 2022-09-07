@@ -4,7 +4,7 @@
   "description": "Express Mysql",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+   
     "nodemon": "nodemon app.js"
   },
   "author": "nipuna",

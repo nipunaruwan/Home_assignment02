@@ -15,7 +15,18 @@ if(err){
     connection.query(itemTable, function (err, result) { 
         if (result.warningCount === 0) {
             console.log("table created");
-}
+     }
+    })
+   }
 })
-}
+
+
+
+// get all item
+router.get('/', (req, res) => {
+    var getAllItemQuery = "SELECT * FROM item";
+    connection.query(getAllItemQuery, (err, rows) => {
+        if (err) console.log(err);
+        res.send(rows);
+    })
 })

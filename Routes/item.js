@@ -1,6 +1,8 @@
 const express = require('express')
+const req = require('express/lib/request')
+const res = require('express/lib/response')
 const mysql = require('mysql')
-const dbase = require('../configs/db.configs')
+const dbase = require('../Config/db.config')
 const router = express.Router()
 const connection = mysql.createConnection(dbase.database)
 
@@ -30,3 +32,26 @@ router.get('/', (req, res) => {
         res.send(rows);
     })
 })
+
+
+//save item
+router.post('/',(req,res) => {
+    const code = req.body.code
+    const description = req.body.description
+    const qtyOnHand = req.body.qtyOnHand
+    const unitPrice = req.body.unitPrice
+
+    var updateItemQuery = "UPDATE item SET description=?, qtyOnHand=?, unitPrice=? WHERE code=?";
+    connection.query(updateItemQuery, [description, qtyOnHand, unitPrice, code], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ "message": "item updated" })
+        } else {
+            res.send({ "message": "item is not found. try again" })
+        }
+    })
+})
+
+
+module.exports = router;

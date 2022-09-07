@@ -1,5 +1,5 @@
 const customer = require('./Routes/customer')
-const item= require('../Routes/item')
+const item= require('./Routes/item')
 const express = require('express')
 const app = express()
 const port = 3001

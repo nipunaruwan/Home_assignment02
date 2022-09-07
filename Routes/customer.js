@@ -98,6 +98,7 @@ router.post('/', (req, res) => {
 })
 })
 
+// delete customer
 
 router.delete('/:id' ,(req, res) => {
     const id = req.params.id;

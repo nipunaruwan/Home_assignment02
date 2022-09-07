@@ -49,3 +49,22 @@ router.post('/',(req,res)=>{
     })
 })
 
+
+//update order detail
+router.put('/', (req,res)=>{
+    const orderId = req.body.orderId;
+    const itemCode = req.body.itemCode;
+    const qty = req.body.qty;
+    const unitPrice = req.body.unitPrice;
+
+    var updateQuery = "UPDATE customer SET itemCode=?, qty=?, unitPrice=? WHERE orderId=?";
+    connection.query(updateQuery, [itemCode,qty,unitPrice,orderId], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ "message": "order detail updated" })
+        } else {
+            res.send({ "message": "order detail is not found. try again" })
+        }
+    })
+})
